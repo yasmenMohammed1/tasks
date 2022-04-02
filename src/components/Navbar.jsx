@@ -1,0 +1,62 @@
+import React, { useContext } from "react";
+import { NavLink } from "react-router-dom";
+import { LanguageContext } from "../context/language";
+
+export default function Navbar() {
+
+  const { langContext, setLangContext } = useContext(LanguageContext);
+
+  const navLinkStyles = ({isActive})=>{
+    return{
+      fontWeight:isActive ? 'green' : 'blue',
+      textDecoration: isActive ? 'none' : 'underline'
+    }
+  }
+  return (
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <div className="container-fluid">
+        <NavLink className="nav-item" style={navLinkStyles} to="/">
+          Navbar
+        </NavLink>
+        
+        {/* <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button> */}
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <NavLink className="nav-link" style={navLinkStyles} to="/movies">
+                Movies
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" style={navLinkStyles} to="/favMovies">
+                Favourite
+              </NavLink>
+            </li>
+            <li>
+            <button
+                style={{marginRight: "10px"}}
+                className="btn btn-info"
+                onClick={() => setLangContext(langContext === "ar" ? "en" : "ar")}
+              >
+                Change context lang
+              </button>
+            </li>
+            <li className="nav-item">
+              {langContext}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  );
+}
